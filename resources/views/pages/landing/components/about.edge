@@ -1,24 +1,3 @@
-@php
-    $employees = [
-        [
-            'avatar' => '/images/employees/nvh.jpg',
-            'name' => 'Nguyễn Văn Huyên',
-            'position' => 'Developer'
-        ],
-        [
-            'avatar' => '/images/employees/nat.jpg',
-            'name' => 'Nguyễn Anh Tuấn',
-            'position' => 'CEO'
-        ],
-        [
-            'avatar' => '/images/employees/cttd.jpg',
-            'name' => 'Cao Thị Thùy Dương',
-            'position' => 'Tester'
-        ]
-    ];
-@endphp
-
-
 <div class="site-section">
     <div class="container">
         <div class="section-title text-center mb-5">
@@ -26,22 +5,22 @@
         </div>
 
         <div class="row">
-            @foreach ($employees as $e)
+            @each (e in employees)
                 <div class="col-md-4 mb-4 mb-lg-0"
                     data-aos="zoom-in">
                     <div class="rounded shadow-sm text-center mx-auto"
                         style="max-width: 320px;">
-                        <img src="{{ $e['avatar'] }}"
+                        <img src="{{ e.avatar }}"
                             class="employee-avatar object-fit-cover rounded-up w-100" />
                         
                         <div class="p-4 mt-n5 position-relative bg-primary"
                             style="border-radius: 2rem 0 0.25rem 0.25rem;">
                             <div class="font-weight-500 text-white">
-                                {{ $e['name'] }}
+                                {{ e.name }}
                             </div>
 
                             <div class="text-white">
-                                {{ $e['position'] }}
+                                {{ e.position }}
                             </div>
 
                             <svg viewBox="0 0 19 19"
@@ -58,7 +37,7 @@
                         </div>
                     </div>
                 </div>
-            @endforeach
+            @end
         </div>
     </div>
 </div>

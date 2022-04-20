@@ -8,6 +8,30 @@ export default class LandingPageController {
      * Vào trang.
      */
     public async index({ view, request }: HttpContextContract) {
+        // Sử dụng ở services.edge
+        const services = [
+            {
+                icon: '<span class="la la-heart"></span>',
+                name: 'Phát triển Web',
+                description: 'Các ứng dụng cross-platform trên cả mobile và desktop',
+            },
+            {
+                icon: '<span class="la la-apple-alt"></span>',
+                name: 'Thiết kế UI/UX',
+                description: 'Giao diện nhẹ, trang nhã, hiện đại, thuận tiện cho người dùng',
+            },
+            {
+                icon: '<span class="la la-lemon"></span>',
+                name: 'Tăng hiệu năng',
+                description: 'Giúp ứng dụng của bạn nhanh hơn, load trang nhanh hơn',
+            },
+            {
+                icon: '<span class="la la-shield-alt"></span>',
+                name: 'Kiểm tra ATTT',
+                description: 'Kiểm tra các lỗi ATTT thông dụng theo checklist',
+            },
+        ]
+
         // Sử dụng ở porfolio.edge
         const products = [
             {
@@ -130,9 +154,61 @@ export default class LandingPageController {
             },
         ]
 
+        // Sử dụng ở clients.edge
+        const clients = [
+            '/images/clients/bkav.png',
+            '/images/clients/nongnghiep.png',
+            '/images/clients/phapluat.png',
+            '/images/clients/quandoinhandan.png',
+            '/images/clients/sacombank.png',
+            '/images/clients/vtv.png',
+        ]
+
+        // Sử dụng ở testimonials.edge
+        const testimonials = [
+            {
+                text: 'Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.',
+                author: 'Jean Smith',
+                avatar: '/images/testimonials/facebook-avatar.jpg',
+            },
+            {
+                text: 'A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.',
+                author: 'Carl Spencer',
+                avatar: '/images/testimonials/user-avatar.png',
+            },
+            {
+                text: 'Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar.',
+                author: 'Ryan Peters',
+                avatar: '/images/testimonials/user-avatar.png',
+            },
+        ]
+
+        // Sử dụng ở about.edge
+        const employees = [
+            {
+                avatar: '/images/employees/nvh.jpg',
+                name: 'Nguyễn Văn Huyên',
+                position: 'Developer',
+            },
+            {
+                avatar: '/images/employees/nat.jpg',
+                name: 'Nguyễn Anh Tuấn',
+                position: 'CEO',
+            },
+            {
+                avatar: '/images/employees/cttd.jpg',
+                name: 'Cao Thị Thùy Dương',
+                position: 'Tester',
+            },
+        ]
+
         return view.render('pages/landing/landing', {
-            products,
             request,
+            services,
+            products,
+            clients,
+            testimonials,
+            employees,
         })
     }
 }
