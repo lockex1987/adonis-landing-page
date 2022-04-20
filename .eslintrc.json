@@ -1,5 +1,73 @@
 {
+    "parser": "@typescript-eslint/parser",
+
+    "parserOptions": {
+        "ecmaVersion": "latest",
+        "sourceType": "module"
+    },
+
+    "extends": [
+        "google",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:vue/essential"
+    ],
+
+    "env": {
+        "node": true,
+        "browser": true,
+        "es2021": true
+    },
+
+    "plugins": [
+        "vue"
+    ],
+
+    "globals": {
+        "Vue": "readonly",
+        "Vuex": "readonly",
+        "VueRouter": "readonly",
+        "axios": "readonly",
+        "Highcharts": "readonly",
+        "$": "readonly",
+        "ExcelJS": "readonly",
+        "moment": "readonly",
+        "FB": "readonly",
+        "YT": "readonly",
+        "L": "readonly",
+        "bootstrap": "readonly",
+
+        "CV": "readonly",
+        "noti": "readonly",
+        "Datatable": "readonly",
+        "Pagi": "readonly",
+        "CommonUtils": "readonly",
+        "Inputmask": "readonly",
+        "Carousel": "readonly",
+        "THREE": "readonly",
+
+        "SSO_CONSUMER_DOMAIN": "readonly",
+        "SSO_PASSPORT_URL": "readonly"
+    },
+
     "rules": {
-        "@typescript-eslint/indent": ["error", 4]
+        "require-jsdoc": "off",
+        "quotes": ["error", "single"],
+        
+        "semi": ["error", "never"],
+        "indent": ["error", 4],
+        "space-before-function-paren": ["error", {
+            "anonymous": "always",
+            "named": "never",
+            "asyncArrow": "always"
+        }],
+        "eqeqeq": "off",
+        "no-new": "off",
+        "no-multiple-empty-lines": "off",
+        "operator-linebreak": ["error", "before"],
+        "object-curly-spacing": ["error", "always"],
+        "arrow-parens": ["error", "as-needed"],
+        "@typescript-eslint/indent": ["error", 4],
+        "max-len": "off",
+        "quote-props": ["error", "as-needed"]
     }
 }
