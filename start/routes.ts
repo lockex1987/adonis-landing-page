@@ -21,5 +21,75 @@
 import Route from '@ioc:Adonis/Core/Route'
 
 Route.get('/', async ({ view }) => {
-  return view.render('welcome')
+    return view.render('welcome')
 })
+
+Route.get('/me', async ({}) => {
+    return 'Lấy thông tin người dùng'
+})
+
+Route.post('/logout', async ({}) => {
+    return 'Đăng xuất'
+})
+
+Route.get('/tin-tuc', async () => {
+    return 'Vào trang tin tức'
+})
+
+Route.get('/tin-tuc/danh-muc/:categoryLv1', async ({ params }) => {
+    return 'Vào danh mục ' + params.categoryLv1
+})
+
+Route.get('/tin-tuc/download/:content', async ({ params }) => {
+    return 'Download EPUB từ bài ' + params.content
+})
+
+Route.get('/tin-tuc/relate/:content', async ({ params }) => {
+    return 'Danh sách bài viết liên quan của ' + params.content
+})
+
+Route.get('/tin-tuc/tag/:tag', async ({ params }) => {
+    return 'Danh sách bài viết của thẻ ' + params.tag
+})
+
+Route.get('/tin-tuc/the-loai/:categoryLv2', async ({ params }) => {
+    return 'Vào thể loại ' + params.categoryLv2
+})
+
+Route.get('/tin-tuc/:content', async ({ params }) => {
+    return 'Xem chi tiết bài viết ' + params.content
+})
+
+Route.post('/like-news', async ({}) => {
+    return 'Thêm like'
+})
+
+Route.post('/unlike-news', async ({}) => {
+    return 'Bỏ like'
+})
+
+Route.get('/api/news/comment', async ({}) => {
+    return 'Lấy danh sách bình luận'
+})
+
+Route.post('/api/news/comment', async ({}) => {
+    return 'Thêm bình luận'
+})
+
+Route.get('/san-pham', async ({}) => {
+    return 'Vào trang sản phẩm'
+})
+
+Route.post('/full-cart-items', async ({}) => {
+    return 'Lấy thông tin chi tiết giỏ hàng'
+})
+
+Route.get('/dat-hang', async ({}) => {
+    return 'Vào trang đặt hàng'
+})
+
+Route.post('/dat-hang', async ({}) => {
+    return 'Thực hiện đặt hàng'
+})
+
+Route.get('/dieu-khoan', 'ContentController.getTermsOfService')
