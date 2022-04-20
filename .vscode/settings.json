@@ -1,0 +1,33 @@
+{
+    "[javascript]": {
+        "editor.formatOnSave": false,
+        "editor.codeActionsOnSave": {
+            "source.fixAll.eslint": true
+        }
+    },
+
+    "[typescript]": {
+        "editor.formatOnSave": false,
+        "editor.codeActionsOnSave": {
+            "source.fixAll.eslint": true,
+            "source.organizeImports": false
+        }
+    },
+
+    "[vue]": {
+        "editor.defaultFormatter": "octref.vetur",
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.fixAll.eslint": true
+        }
+    },
+
+    "vetur.format.defaultFormatter.html": "js-beautify-html",
+	"vetur.format.defaultFormatterOptions": {
+        "js-beautify-html": {
+            "wrap_attributes": "force"
+        }
+    },
+    "vetur.format.defaultFormatter.js": "none",
+    "vetur.format.options.tabSize": 4
+}
