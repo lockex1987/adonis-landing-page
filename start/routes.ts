@@ -20,9 +20,8 @@
 
 import Route from '@ioc:Adonis/Core/Route'
 
-Route.get('/', async ({ view }) => {
-    return view.render('welcome')
-})
+// Trang landing
+Route.get('/', 'LandingPageController.index')
 
 Route.get('/me', async ({}) => {
     return 'Lấy thông tin người dùng'
