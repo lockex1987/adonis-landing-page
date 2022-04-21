@@ -19,43 +19,43 @@ import { ShieldConfig } from '@ioc:Adonis/Addons/Shield'
 */
 export const csp: ShieldConfig['csp'] = {
     /*
-  |--------------------------------------------------------------------------
-  | Enable/disable CSP
-  |--------------------------------------------------------------------------
-  |
-  | The CSP rules are disabled by default for seamless onboarding.
-  |
-  */
+    |--------------------------------------------------------------------------
+    | Enable/disable CSP
+    |--------------------------------------------------------------------------
+    |
+    | The CSP rules are disabled by default for seamless onboarding.
+    |
+    */
     enabled: false,
 
     /*
-  |--------------------------------------------------------------------------
-  | Directives
-  |--------------------------------------------------------------------------
-  |
-  | All directives are defined in camelCase and here is the list of
-  | available directives and their possible values.
-  |
-  | https://content-security-policy.com
-  |
-  | @example
-  | directives: {
-  |   defaultSrc: ["'self'", '@nonce', 'cdnjs.cloudflare.com']
-  | }
-  |
-  */
+    |--------------------------------------------------------------------------
+    | Directives
+    |--------------------------------------------------------------------------
+    |
+    | All directives are defined in camelCase and here is the list of
+    | available directives and their possible values.
+    |
+    | https://content-security-policy.com
+    |
+    | @example
+    | directives: {
+    |   defaultSrc: ["'self'", '@nonce', 'cdnjs.cloudflare.com']
+    | }
+    |
+    */
     directives: {
     },
 
     /*
-  |--------------------------------------------------------------------------
-  | Report only
-  |--------------------------------------------------------------------------
-  |
-  | Setting `reportOnly=true` will not block the scripts from running and
-  | instead report them to a URL.
-  |
-  */
+    |--------------------------------------------------------------------------
+    | Report only
+    |--------------------------------------------------------------------------
+    |
+    | Setting `reportOnly=true` will not block the scripts from running and
+    | instead report them to a URL.
+    |
+    */
     reportOnly: false,
 }
 
@@ -70,10 +70,10 @@ export const csp: ShieldConfig['csp'] = {
 */
 export const csrf: ShieldConfig['csrf'] = {
     /*
-  |--------------------------------------------------------------------------
-  | Enable/Disable CSRF
-  |--------------------------------------------------------------------------
-  */
+    |--------------------------------------------------------------------------
+    | Enable/Disable CSRF
+    |--------------------------------------------------------------------------
+    */
     enabled: Env.get('NODE_ENV') !== 'test',
 
     /*
@@ -210,14 +210,14 @@ export const hsts: ShieldConfig['hsts'] = {
     includeSubDomains: true,
 
     /*
-  |--------------------------------------------------------------------------
-  | Preloading
-  |--------------------------------------------------------------------------
-  |
-  | Google maintains a service to register your domain and it will preload
-  | the HSTS policy. Learn more https://hstspreload.org/
-  |
-  */
+    |--------------------------------------------------------------------------
+    | Preloading
+    |--------------------------------------------------------------------------
+    |
+    | Google maintains a service to register your domain and it will preload
+    | the HSTS policy. Learn more https://hstspreload.org/
+    |
+    */
     preload: false,
 }
 
