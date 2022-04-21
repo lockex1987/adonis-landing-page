@@ -23,9 +23,8 @@ import Route from '@ioc:Adonis/Core/Route'
 // Trang landing
 Route.get('/', 'LandingPageController.index')
 
-Route.get('/me', async ({}) => {
-    return 'Lấy thông tin người dùng'
-})
+// Lấy thông tin người dùng
+Route.get('/me', 'LoginController.getUserInfo')
 
 Route.post('/logout', async ({}) => {
     return 'Đăng xuất'

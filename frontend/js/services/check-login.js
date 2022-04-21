@@ -44,9 +44,6 @@ Vue.createApp({
         },
 
         /**
-         * Xử lý đăng xuất.
-         */
-        /**
          * Thực hiện đăng xuất.
          */
         async processLogout() {

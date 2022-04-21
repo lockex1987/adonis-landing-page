@@ -10,8 +10,7 @@
     <link rel="icon" href="/images/logo.svg" />
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;1,100;1,300;1,400;1,500&display=block" />
-    <!--link rel="stylesheet" href="{{ mix('/css/style.css') }}" /-->
-    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="{{ mix('/css/style.css') }}" />
 
     @!section('header_assets')
 </head>
@@ -32,20 +31,22 @@
     <script src="/libs/axios/js/axios.min.js"></script>
     <script src="/libs/pubsub/pubsub.js"></script>
 
+    <link rel="stylesheet" href="/libs/noti/css/noti.css" />
+    <script src="/libs/noti/js/noti.js"></script>
+
     <!-- Summernote, dropdown cần thư viện này -->
     <script src="/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <script src="/libs/vue/js/vue.global.prod.js"></script>
 
-    <!--script src="{{ mix('/js/base.js') }}"></script-->
-    <script src="/js/base.js"></script>
+    <script src="{{ mix('/js/base.js') }}"></script>
 
     <script>
         // Thông tin SSO
         // const SSO_CONSUMER_DOMAIN = "{{ config('services.sso.consumerDomain') }}";
         // const SSO_PASSPORT_URL = "{{ config('services.sso.passportUrl') }}";
 
-        const SSO_CONSUMER_DOMAIN = "landing-page.cttd.tk";
+        const SSO_CONSUMER_DOMAIN = "adonis-landing-page.cttd.tk";
         const SSO_PASSPORT_URL = "https://sso-passport.cttd.tk";
     </script>
 

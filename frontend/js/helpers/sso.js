@@ -16,11 +16,11 @@ function getRootDomain() {
     // Nếu host có chứa ký tự (không phải tất cả là số)
     // thì là domain, không phải IP
     // Logic thế cho đơn giản
-    const host = location.host
+    const host = location.hostname
     const hasAlphabet = /[a-z]/i.test(host)
     if (!hasAlphabet) {
         // Theo IP
-        return location.host
+        return location.hostname
     }
 
     // Theo domain
@@ -28,6 +28,12 @@ function getRootDomain() {
     if (temp.length > 2) {
         return '.' + temp[1] + '.' + temp[0]
     }
+
+    if (temp.length == 1) {
+        // localhost, 127.0.0.1
+        return temp[0]
+    }
+
     return '.' + temp[0]
 }
 
