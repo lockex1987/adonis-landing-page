@@ -1,13 +1,13 @@
-import { getToken, deleteToken } from '~/helpers/sso.js';
+import { getToken, deleteToken } from '~/helpers/sso.js'
 
 // Request interceptor
 axios.interceptors.request.use(request => {
-    const token = getToken();
+    const token = getToken()
     if (token) {
-        request.headers.common.Authorization = `Bearer ${token}`;
+        request.headers.common.Authorization = `Bearer ${token}`
     }
-    return request;
-});
+    return request
+})
 
 // Response interceptor
 axios.interceptors.response.use(
@@ -16,14 +16,14 @@ axios.interceptors.response.use(
 
     // Khi có lỗi thì xử lý lỗi chung
     error => {
-        const { status } = error.response;
+        const { status } = error.response
 
         if (status >= 500) {
-            noti.error('Đã có lỗi xảy ra');
+            noti.error('Đã có lỗi xảy ra')
         }
 
         if (status == 403) {
-            noti.error('Bạn không có quyền thực hiện chức năng này');
+            noti.error('Bạn không có quyền thực hiện chức năng này')
         }
 
         // https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
@@ -32,30 +32,32 @@ axios.interceptors.response.use(
         // Chưa được phân quyền
         if ([440, 419, 401].includes(status)) {
             // Xóa token cũ đã hết hạn
-            deleteToken();
+            deleteToken()
 
             // Về trang chủ
-            window.location = '/';
+            window.location = '/'
         }
 
         // Xử lý lỗi validate do Laravel trả về
         if (status == 422) {
-            const errors = error.response.data.errors;
-            let message = '';
+            const errors = error.response.data.errors
+            let message = ''
             for (const key in errors) {
-                const arr = errors[key];
-                arr.forEach(s => {
-                    message += s + '\n';
-                });
+                if (Object.prototype.hasOwnProperty.call(errors, key)) {
+                    const arr = errors[key]
+                    arr.forEach(s => {
+                        message += s + '\n'
+                    })
+                }
             }
-            noti.error(message.trim());
+            noti.error(message.trim())
         }
 
         // return Promise.reject(error);
         return Promise.resolve({
             data: {
-                code: status
-            }
-        });
-    }
-);
+                code: status,
+            },
+        })
+    },
+)

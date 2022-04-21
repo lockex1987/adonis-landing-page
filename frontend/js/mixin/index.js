@@ -5,9 +5,9 @@ export default {
          */
         convertMomentToFrontendString(momentObject) {
             if (!momentObject) {
-                return '';
+                return ''
             }
-            return momentObject.format('DD/MM/YYYY');
+            return momentObject.format('DD/MM/YYYY')
         },
 
         /**
@@ -15,9 +15,9 @@ export default {
          */
         formatDate(date) {
             if (!date) {
-                return '';
+                return ''
             }
-            return moment(date.replace(/\//g, '-')).format('DD/MM/YYYY');
+            return moment(date.replace(/\//g, '-')).format('DD/MM/YYYY')
         },
 
         /**
@@ -25,9 +25,9 @@ export default {
          */
         formatDateTime(date, pattern = 'DD/MM/YYYY HH:mm:ss') {
             if (!date) {
-                return '';
+                return ''
             }
-            return moment(date.replace(/\//g, '-')).format(pattern);
+            return moment(date.replace(/\//g, '-')).format(pattern)
         },
 
         /**
@@ -37,9 +37,9 @@ export default {
          */
         formatWithApiDateTimeFormat(dateStr) {
             if (!dateStr) {
-                return '';
+                return ''
             }
-            return dateStr.replace(/-/g, '/');
+            return dateStr.replace(/-/g, '/')
         },
 
         /**
@@ -49,9 +49,9 @@ export default {
          */
         normalizeApiDateTimeFormat(dateStr) {
             if (!dateStr) {
-                return '';
+                return ''
             }
-            return dateStr.replace(/\//g, '-');
+            return dateStr.replace(/\//g, '-')
         },
 
         /**
@@ -60,9 +60,9 @@ export default {
          */
         formatNumber(num) {
             if (!num) {
-                return num;
+                return num
             }
-            return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+            return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
         },
 
         /**
@@ -72,7 +72,7 @@ export default {
          */
         prettifyNumber(num, digits) {
             if (!digits) {
-                digits = 1;
+                digits = 1
             }
 
             const si = [
@@ -81,19 +81,19 @@ export default {
                 { value: 1E12, symbol: 'T' },
                 { value: 1E9, symbol: 'G' },
                 { value: 1E6, symbol: 'M' },
-                { value: 1E3, symbol: 'K' }
-            ];
+                { value: 1E3, symbol: 'K' },
+            ]
             for (let i = 0; i < si.length; i++) {
                 if (num >= si[i].value) {
-                    const n = (num / si[i].value).toFixed(digits);
+                    const n = (num / si[i].value).toFixed(digits)
 
                     // Xóa những chữ số 0 đằng sau dấu thập phân
                     // Nếu chỉ để 0+ thì sẽ không xóa được dấu .
                     // Nếu chỉ để \.0+ thì sẽ không xử lý được trường hợp 123.400
-                    return n.replace(/\.?0+$/, '') + si[i].symbol;
+                    return n.replace(/\.?0+$/, '') + si[i].symbol
                 }
             }
-            return num;
-        }
-    }
-};
+            return num
+        },
+    },
+}

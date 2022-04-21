@@ -4,16 +4,16 @@ import {
     decreaseQuantity,
     removeFromCart,
     clearItems,
-    getFullCartItems
-} from '~/helpers/shopping-cart.js';
+    getFullCartItems,
+} from '~/helpers/shopping-cart.js'
 
 // Gọi ở order.js và header-cart.js
-import mixin from '~/mixin/index.js';
+import mixin from '~/mixin/index.js'
 
 
 Vue.createApp({
     mixins: [
-        mixin
+        mixin,
     ],
 
     data() {
@@ -32,26 +32,26 @@ Vue.createApp({
                 address: '',
                 phone: '',
                 note: '',
-                payment: ''
+                payment: '',
             },
 
             // Đang lưu thông tin
             isSaving: false,
 
             // Đã đặt hàng thành công
-            orderSuccess: false
-        };
+            orderSuccess: false,
+        }
     },
 
     mounted() {
-        PubSub.subscribe('cart-items-changed', (data) => {
-            this.cartItems = data.fullInfo;
-            this.total = data.total;
-        });
+        PubSub.subscribe('cart-items-changed', data => {
+            this.cartItems = data.fullInfo
+            this.total = data.total
+        })
 
         // Lấy dữ liệu từ localStorage
-        const items = getItems();
-        getFullCartItems(items);
+        const items = getItems()
+        getFullCartItems(items)
     },
 
     methods: {
@@ -61,24 +61,24 @@ Vue.createApp({
          * Xóa sản phẩm khỏi giỏ hàng.
          */
         removeItem(item) {
-            const items = removeFromCart(item.id);
-            getFullCartItems(items);
+            const items = removeFromCart(item.id)
+            getFullCartItems(items)
         },
 
         /**
          * Tăng số lượng.
          */
         plusQuantity(item) {
-            const items = increaseQuantity(item.id);
-            getFullCartItems(items);
+            const items = increaseQuantity(item.id)
+            getFullCartItems(items)
         },
 
         /**
          * Giảm số lượng.
          */
         minusQuantity(item) {
-            const items = decreaseQuantity(item.id);
-            getFullCartItems(items);
+            const items = decreaseQuantity(item.id)
+            getFullCartItems(items)
         },
 
         /**
@@ -86,34 +86,34 @@ Vue.createApp({
          */
         async processOrder() {
             if (this.isSaving) {
-                return;
+                return
             }
 
             if (CV.invalidForm(this.$el)) {
-                return;
+                return
             }
 
-            const items = getItems();
+            const items = getItems()
             if (items.length == 0) {
-                noti.error('Bạn chưa chọn sản phẩm nào');
-                return;
+                noti.error('Bạn chưa chọn sản phẩm nào')
+                return
             }
 
-            this.isSaving = true;
+            this.isSaving = true
             const params = {
                 items: items,
-                customer: this.customer
-            };
-            const { data } = await axios.post('/dat-hang', params);
-            this.isSaving = false;
+                customer: this.customer,
+            }
+            const { data } = await axios.post('/dat-hang', params)
+            this.isSaving = false
 
             if (data.code == 0) {
-                noti.success('Bạn đã đặt hàng thành công');
-                clearItems();
-                this.cartItems = data.fullInfo;
-                this.total = data.total;
-                this.orderSuccess = true;
+                noti.success('Bạn đã đặt hàng thành công')
+                clearItems()
+                this.cartItems = data.fullInfo
+                this.total = data.total
+                this.orderSuccess = true
             }
-        }
-    }
-}).mount('#app');
+        },
+    },
+}).mount('#app')

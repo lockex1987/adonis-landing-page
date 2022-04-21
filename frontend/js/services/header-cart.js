@@ -1,15 +1,15 @@
 import {
     getItems,
     removeFromCart,
-    getFullCartItems
-} from '~/helpers/shopping-cart.js';
+    getFullCartItems,
+} from '~/helpers/shopping-cart.js'
 
 // Gọi ở order.js và header-cart.js
-import mixin from '~/mixin/index.js';
+import mixin from '~/mixin/index.js'
 
 Vue.createApp({
     mixins: [
-        mixin
+        mixin,
     ],
 
     data() {
@@ -18,8 +18,8 @@ Vue.createApp({
             cartItems: [],
 
             // Tổng số tiền
-            total: null
-        };
+            total: null,
+        }
     },
 
     computed: {
@@ -27,23 +27,23 @@ Vue.createApp({
          * Tổng số lượng.
          */
         totalQuantity() {
-            let n = 0;
+            let n = 0
             this.cartItems.forEach(item => {
-                n += item.quantity;
-            });
-            return n;
-        }
+                n += item.quantity
+            })
+            return n
+        },
     },
 
     mounted() {
-        PubSub.subscribe('cart-items-changed', (data) => {
-            this.cartItems = data.fullInfo;
-            this.total = data.total;
-        });
+        PubSub.subscribe('cart-items-changed', data => {
+            this.cartItems = data.fullInfo
+            this.total = data.total
+        })
 
         // Lấy dữ liệu từ localStorage
-        const items = getItems();
-        getFullCartItems(items);
+        const items = getItems()
+        getFullCartItems(items)
     },
 
     methods: {
@@ -51,8 +51,8 @@ Vue.createApp({
          * Xóa sản phẩm khỏi giỏ hàng.
          */
         removeItem(item) {
-            const items = removeFromCart(item.id);
-            getFullCartItems(items);
-        }
-    }
-}).mount('#headerCart');
+            const items = removeFromCart(item.id)
+            getFullCartItems(items)
+        },
+    },
+}).mount('#headerCart')

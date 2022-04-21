@@ -1,12 +1,12 @@
 import {
     getCookie,
     setCookie,
-    deleteCookie
-} from './cookie.js';
+    deleteCookie,
+} from './cookie.js'
 
 // Tên cookie
-const AUTH_COOKIE_NAME = 'authToken';
-const AUTH_EXPIRED_NAME = 'authExpired';
+const AUTH_COOKIE_NAME = 'authToken'
+const AUTH_EXPIRED_NAME = 'authExpired'
 
 /**
  * Lấy root domain.
@@ -16,27 +16,27 @@ function getRootDomain() {
     // Nếu host có chứa ký tự (không phải tất cả là số)
     // thì là domain, không phải IP
     // Logic thế cho đơn giản
-    const host = location.host;
-    const hasAlphabet = /[a-z]/i.test(host);
+    const host = location.host
+    const hasAlphabet = /[a-z]/i.test(host)
     if (!hasAlphabet) {
         // Theo IP
-        return location.host;
+        return location.host
     }
 
     // Theo domain
-    const temp = host.split('.').reverse();
+    const temp = host.split('.').reverse()
     if (temp.length > 2) {
-        return '.' + temp[1] + '.' + temp[0];
+        return '.' + temp[1] + '.' + temp[0]
     }
-    return '.' + temp[0];
+    return '.' + temp[0]
 }
 
 /**
  * Lấy giá trị token.
  */
 export const getToken = function () {
-    return getCookie(AUTH_COOKIE_NAME);
-};
+    return getCookie(AUTH_COOKIE_NAME)
+}
 
 /**
  * Lưu token.
@@ -44,16 +44,16 @@ export const getToken = function () {
  * @param {int} expiredTime Thời điểm hết hạn của token (đơn vị millisecond)
  */
 export const setToken = function (token, expiredTime) {
-    const rootDomain = getRootDomain();
-    setCookie(AUTH_COOKIE_NAME, token, expiredTime, rootDomain);
-    setCookie(AUTH_EXPIRED_NAME, expiredTime, expiredTime, rootDomain);
-};
+    const rootDomain = getRootDomain()
+    setCookie(AUTH_COOKIE_NAME, token, expiredTime, rootDomain)
+    setCookie(AUTH_EXPIRED_NAME, expiredTime, expiredTime, rootDomain)
+}
 
 /**
  * Xóa token.
  */
 export const deleteToken = function () {
-    const rootDomain = getRootDomain();
-    deleteCookie(AUTH_COOKIE_NAME, rootDomain);
-    deleteCookie(AUTH_EXPIRED_NAME, rootDomain);
-};
+    const rootDomain = getRootDomain()
+    deleteCookie(AUTH_COOKIE_NAME, rootDomain)
+    deleteCookie(AUTH_EXPIRED_NAME, rootDomain)
+}

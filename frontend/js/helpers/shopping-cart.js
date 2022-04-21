@@ -1,15 +1,15 @@
-const LOCAL_STORAGE_NAME = 'shopping-cart';
+const LOCAL_STORAGE_NAME = 'shopping-cart'
 
 /**
  * Lấy danh sách các sản phẩm trong giỏ hàng hiện tại.
  * @return {Array} Mảng các sản phẩm, gồm có { id, quantity }
  */
 function getItems() {
-    const str = localStorage.getItem(LOCAL_STORAGE_NAME);
+    const str = localStorage.getItem(LOCAL_STORAGE_NAME)
     if (str) {
-        return JSON.parse(str);
+        return JSON.parse(str)
     }
-    return [];
+    return []
 }
 
 /**
@@ -17,8 +17,8 @@ function getItems() {
  * @return {Array} Một mảng rỗng
  */
 function clearItems() {
-    localStorage.removeItem(LOCAL_STORAGE_NAME);
-    return [];
+    localStorage.removeItem(LOCAL_STORAGE_NAME)
+    return []
 }
 
 /**
@@ -27,18 +27,18 @@ function clearItems() {
  * @return {Array} Mảng các sản phẩm
  */
 function increaseQuantity(productId) {
-    const items = getItems();
-    const obj = items.find(e => e.id == productId);
+    const items = getItems()
+    const obj = items.find(e => e.id == productId)
     if (obj) {
-        obj.quantity++;
+        obj.quantity++
     } else {
         items.push({
             id: productId,
-            quantity: 1
-        });
+            quantity: 1,
+        })
     }
-    localStorage.setItem(LOCAL_STORAGE_NAME, JSON.stringify(items));
-    return items;
+    localStorage.setItem(LOCAL_STORAGE_NAME, JSON.stringify(items))
+    return items
 }
 
 /**
@@ -47,17 +47,17 @@ function increaseQuantity(productId) {
  * @return {Array} Mảng các sản phẩm
  */
 function decreaseQuantity(productId) {
-    const items = getItems();
-    const idx = items.findIndex(e => e.id == productId);
+    const items = getItems()
+    const idx = items.findIndex(e => e.id == productId)
     if (idx >= 0) {
-        const obj = items[idx];
-        obj.quantity--;
+        const obj = items[idx]
+        obj.quantity--
         if (obj.quantity <= 0) {
-            items.splice(idx, 1);
+            items.splice(idx, 1)
         }
     }
-    localStorage.setItem(LOCAL_STORAGE_NAME, JSON.stringify(items));
-    return items;
+    localStorage.setItem(LOCAL_STORAGE_NAME, JSON.stringify(items))
+    return items
 }
 
 /**
@@ -66,13 +66,13 @@ function decreaseQuantity(productId) {
  * @return {Array} Mảng các sản phẩm
  */
 function removeFromCart(productId) {
-    const items = getItems();
-    const idx = items.findIndex(e => e.id == productId);
+    const items = getItems()
+    const idx = items.findIndex(e => e.id == productId)
     if (idx >= 0) {
-        items.splice(idx, 1);
-        localStorage.setItem(LOCAL_STORAGE_NAME, JSON.stringify(items));
+        items.splice(idx, 1)
+        localStorage.setItem(LOCAL_STORAGE_NAME, JSON.stringify(items))
     }
-    return items;
+    return items
 }
 
 /**
@@ -80,15 +80,15 @@ function removeFromCart(productId) {
  */
 async function getFullCartItems(items) {
     if (!items || items.length == 0) {
-        PubSub.publish('cart-items-changed', { total: 0, fullInfo: [] });
-        return;
+        PubSub.publish('cart-items-changed', { total: 0, fullInfo: [] })
+        return
     }
 
     const params = {
-        items: items
-    };
-    const { data } = await axios.post('/full-cart-items', params);
-    PubSub.publish('cart-items-changed', data);
+        items: items,
+    }
+    const { data } = await axios.post('/full-cart-items', params)
+    PubSub.publish('cart-items-changed', data)
 }
 
 export {
@@ -97,5 +97,5 @@ export {
     increaseQuantity,
     decreaseQuantity,
     removeFromCart,
-    getFullCartItems
-};
+    getFullCartItems,
+}

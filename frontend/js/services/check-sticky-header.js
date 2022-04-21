@@ -2,14 +2,14 @@
  * Xử lý sticky header khi scroll.
  */
 function checkStickyHeader() {
-    const st = $(window).scrollTop();
+    const st = $(window).scrollTop()
     if (st > 60) {
-        $('.site-navbar').addClass('shrink');
+        $('.site-navbar').addClass('shrink')
     } else {
-        $('.site-navbar').removeClass('shrink');
+        $('.site-navbar').removeClass('shrink')
     }
 }
 
-$(window).on('scroll', checkStickyHeader);
+$(window).on('scroll', checkStickyHeader)
 
-checkStickyHeader();
+checkStickyHeader()
