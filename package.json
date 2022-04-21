@@ -6,7 +6,7 @@
         "dev": "node ace serve --watch",
         "build": "node ace build --production",
         "start": "node server.js",
-        "lint": "eslint --fix --ext=.ts app & eslint --fix --ext=.ts providers",
+        "lint": "eslint --fix --ext=.ts app & eslint --fix --ext=.ts providers & eslint --fix --ext=.ts contracts & eslint --fix --ext=.ts commands & eslint --fix --ext=.ts config",
         "dev-fe": "mix",
         "watch-fe": "mix watch",
         "prod-fe": "mix --production",
