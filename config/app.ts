@@ -275,3 +275,12 @@ export const assets: AssetsManagerConfig = {
         attributes: {},
     },
 }
+
+// TODO: Tách ra file khác
+export const services = {
+    sso: {
+        consumerDomain: Env.get('SSO_CONSUMER_DOMAIN'),
+        passportUrl: Env.get('SSO_PASSPORT_URL'),
+        adminUrl: Env.get('SSO_ADMIN_URL'),
+    },
+}
