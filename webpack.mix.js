@@ -1,21 +1,26 @@
 const mix = require('laravel-mix')
 const path = require('path')
 
-mix.vue()
-    .js('frontend/js/base.js', 'public/js')
-    .js('frontend/js/pages/landing.js', 'public/js')
-    .js('frontend/js/pages/news-list.js', 'public/js')
-    .js('frontend/js/pages/news-detail.js', 'public/js')
-    .js('frontend/js/pages/product-list.js', 'public/js')
-    .js('frontend/js/pages/order.js', 'public/js')
+mix.setPublicPath('public')
 
-mix.sass('frontend/scss/style.scss', 'public/css')
-    .sass('frontend/scss/summernote.scss', 'public/css')
-    .sass('frontend/scss/pages/landing.scss', 'public/css')
-    .sass('frontend/scss/pages/news-list.scss', 'public/css')
-    .sass('frontend/scss/pages/news-detail.scss', 'public/css')
-    .sass('frontend/scss/pages/product-list.scss', 'public/css')
-    .sass('frontend/scss/pages/order.scss', 'public/css')
+// Để js cũng như public/js
+mix.vue()
+    .js('frontend/js/base.js', 'js')
+    .js('frontend/js/pages/landing.js', 'js')
+    .js('frontend/js/pages/news-list.js', 'js')
+    .js('frontend/js/pages/news-detail.js', 'js')
+    .js('frontend/js/pages/product-list.js', 'js')
+    .js('frontend/js/pages/order.js', 'js')
+
+mix.sass('frontend/scss/style.scss', 'css')
+    .sass('frontend/scss/summernote.scss', 'css')
+    .sass('frontend/scss/pages/landing.scss', 'css')
+    .sass('frontend/scss/pages/news-list.scss', 'css')
+    .sass('frontend/scss/pages/news-detail.scss', 'css')
+    .sass('frontend/scss/pages/product-list.scss', 'css')
+    .sass('frontend/scss/pages/order.scss', 'css')
+
+// TODO: Thêm version ở prod
 
 mix.sourceMaps(true, 'source-map')
 
