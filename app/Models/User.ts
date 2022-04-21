@@ -8,4 +8,25 @@ export default class User extends BaseModel {
 
     @column()
     public username: string
+
+    @column()
+    public fullName: string
+
+    @column()
+    public email: string
+
+    @column()
+    public avatar: string
+
+    @column()
+    public phone: string
+
+    // @column()
+    // public password: string
+
+    @column()
+    public isActive: number
+
+    @column()
+    public organizationId: number
 }
