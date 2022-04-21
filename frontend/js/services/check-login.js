@@ -48,7 +48,8 @@ Vue.createApp({
          */
         async processLogout() {
             // Gọi API đăng xuất ở passport
-            await axios.post('/logout') // Có thể gọi đến /api/logout ở sso-passport
+            // Có thể gọi đến /api/logout ở sso-passport
+            await axios.post('/logout')
 
             // Xóa token
             deleteToken()

@@ -117,7 +117,6 @@ export default {
      * Lấy giá trị token từ request (trong header).
      */
     getToken(request: RequestContract): string {
-        // const request = this.getRequest()
         const token = (request.header('Authorization') ?? '').replace('Bearer ', '')
         return token
     },
@@ -127,7 +126,7 @@ export default {
      */
     getRedisKeyFromToken(token: string, request: RequestContract): string {
         // Thêm IP của người dùng để nếu lỡ bị lộ thông tin token thì cũng không thực hiện được ở máy khác
-        // const request = this.getRequest()
+
         const ip = request.ip()
         return 'sso_token:' + token + '-' + ip
     },
@@ -136,7 +135,6 @@ export default {
      * Lấy Redis key từ request hiện tại.
      */
     getRedisKeyFromRequest(request: RequestContract): string {
-        // const request = this.getRequest()
         const token = this.getToken(request)
         const redisKey = this.getRedisKeyFromToken(token, request)
         return redisKey
@@ -148,11 +146,5 @@ export default {
     generateRandomToken(): string {
         const token = uuid() + string.generateRandom(100)
         return token
-    },
-
-    getRequest(): RequestContract {
-        const ctx = HttpContext.get() as HttpContextContract
-        const { request } = ctx
-        return request
     },
 }

@@ -1,5 +1,8 @@
 import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
 
+/**
+ * Người dùng.
+ */
 export default class User extends BaseModel {
     public static table = 'user'
 
@@ -21,6 +24,7 @@ export default class User extends BaseModel {
     @column()
     public phone: string
 
+    // Ẩn cột password ở JSON trả về
     @column({ serializeAs: null })
     public password: string
 

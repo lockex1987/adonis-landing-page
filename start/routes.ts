@@ -26,9 +26,8 @@ Route.get('/', 'LandingPageController.index')
 // Lấy thông tin người dùng
 Route.get('/me', 'LoginController.getUserInfo')
 
-Route.post('/logout', async ({}) => {
-    return 'Đăng xuất'
-})
+// Đăng xuất
+Route.post('/logout', 'LoginController.logout')
 
 Route.get('/tin-tuc', async () => {
     return 'Vào trang tin tức'
