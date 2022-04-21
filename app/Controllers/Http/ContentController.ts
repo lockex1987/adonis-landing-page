@@ -1,8 +1,9 @@
-import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+// import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Content from 'App/Models/Content'
 
 export default class ContentController {
-    public async getTermsOfService(ctx: HttpContextContract) {
+    // ctx: HttpContextContract
+    public async getTermsOfService() {
         const content = await Content
             // .query()
             // .setVisible(['content'])

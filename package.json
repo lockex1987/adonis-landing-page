@@ -6,12 +6,12 @@
         "dev": "node ace serve --watch",
         "build": "node ace build --production",
         "start": "node server.js",
-        "lint": "eslint . --ext=.ts",
+        "lint": "eslint --fix --ext=.ts app & eslint --fix --ext=.ts providers",
         "dev-fe": "mix",
         "watch-fe": "mix watch",
         "prod-fe": "mix --production",
-        "lint-fe": "eslint --fix --ext .js,.vue frontend/js",
-        "clear-js": "rm public/js/*"
+        "lint-fe": "eslint --fix --ext=.js,.vue frontend/js",
+        "clear-fe": "rm public/js/* & rm public/css/*"
     },
     "eslintConfig": {
         "extends": [

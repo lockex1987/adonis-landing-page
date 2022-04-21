@@ -15,11 +15,11 @@
     },
     "preloads": [
         "./start/routes",
-        "./start/kernel",
-        "./start/view"
+        "./start/kernel"
     ],
     "providers": [
         "./providers/AppProvider",
+        "./providers/MixAssetProvider",
         "@adonisjs/core",
         "@adonisjs/session",
         "@adonisjs/view",
