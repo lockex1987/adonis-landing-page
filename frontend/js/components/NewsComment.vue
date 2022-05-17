@@ -185,205 +185,206 @@
 
 
 <script>
-import HtmlEditor from '~/components/HtmlEditor.vue';
-import { getToken, deleteToken } from '~/helpers/sso.js';
+import HtmlEditor from '~/components/HtmlEditor.vue'
+import { getToken, deleteToken } from '~/helpers/sso.js'
 
+// Vue ESLint is not applied
 export default {
-    components: {
-        HtmlEditor
-    },
+  components: {
+    HtmlEditor,
+  },
 
-    props: {
-        // ID tin tức
-        newsId: Number
-    },
+  props: {
+    // ID tin tức
+    newsId: Number,
+  },
 
-    data() {
-        return {
-            // Danh sách bình luận
-            commentList: null,
+  data() {
+    return {
+      // Danh sách bình luận
+      commentList: null,
 
-            // Đang thêm mới bình luận
-            isSaving: false,
+      // Đang thêm mới bình luận
+      isSaving: false,
 
-            // Kiểm tra trạng thái đăng nhập (0: chưa kiểm tra, 1: đã đăng nhập, 2: chưa đăng nhập)
-            checkLoginStatus: 0,
+      // Kiểm tra trạng thái đăng nhập (0: chưa kiểm tra, 1: đã đăng nhập, 2: chưa đăng nhập)
+      checkLoginStatus: 0,
 
-            // Tên và ảnh đại diện của người dùng đang đăng nhập
-            userFullName: '',
-            avatar: '',
+      // Tên và ảnh đại diện của người dùng đang đăng nhập
+      userFullName: '',
+      avatar: '',
 
-            // Link đăng nhập
-            loginLink: SSO_PASSPORT_URL + '/login?app=' + SSO_CONSUMER_DOMAIN + '&returnLink=' + encodeURIComponent(window.location.href)
-        };
-    },
-
-    mounted() {
-        // Nếu chưa load xong Bootstrap thì ra undefined
-        // console.log($(document).tooltip);
-
-        this.getCommentList();
-
-        // TODO: Đã có trường isLogin rồi
-        this.checkLogin();
-    },
-
-    methods: {
-        /**
-         * Kiểm tra người dùng đã đăng nhập hay chưa.
-         */
-        async checkLogin() {
-            const token = getToken();
-
-            let userFullName = '';
-            let avatar = '';
-            if (token) {
-                const { data } = await axios.get('/me'); // có thể gọi GET /me ở sso-passport
-                if (data.code == 0) {
-                    const user = data.user;
-                    userFullName = user.full_name;
-                    avatar = user.avatar;
-                } else {
-                    // Xóa token đã hết hạn
-                    // deleteToken();
-                }
-            }
-
-            this.userFullName = userFullName;
-            this.avatar = avatar;
-
-            this.checkLoginStatus = userFullName ? 1 : 2;
-        },
-
-        /**
-         * Hủy form thêm bình luận.
-         */
-        cancelCommentForm() {
-            this.$refs.commentEditor.setCode('<p><br></p>');
-            CV.clearErrorMessages(this.$el);
-        },
-
-        /**
-         * Lấy danh sách comment.
-         */
-        async getCommentList() {
-            const params = {
-                newsId: this.newsId
-            };
-            const { data } = await axios.get('/api/news/comment', { params });
-            const list = data ?? [];
-
-            // Sắp xếp danh sách bình luận cấp 1 theo thời gian giảm dần (mới nhất ở đầu)
-            // Sắp xếp danh sách bình luận cấp 2 theo thời gian tăng dần (để nắm được luồng thảo luận)
-            const level1List = list
-                .filter(level1 => !level1.parent_id)
-                .map(level1 => {
-                    const level2List = list.filter(level2 => level2.parent_id == level1.id).reverse();
-                    return {
-                        ...level1,
-                        showReply: false,
-                        replies: level2List
-                    };
-                });
-
-            this.commentList = level1List;
-        },
-
-        /**
-         * Thêm comment.
-         */
-        async addComment() {
-            if (this.isSaving) {
-                return;
-            }
-
-            const contentHtml = this.$refs.commentEditor.getCode().trim();
-            const contentText = $('<div>' + contentHtml + '</div>')[0].textContent.trim();
-            if (!contentText) {
-                noti.error('Vui lòng nhập nội dung bình luận');
-                return;
-            }
-            if (contentHtml.length > 2000) {
-                noti.error('Nội dung bình luận quá dài');
-                return;
-            }
-
-            this.isSaving = true;
-            const params = {
-                newsId: this.newsId,
-                content: contentHtml,
-                parentId: null
-            };
-            const { data } = await axios.post('/api/news/comment', params);
-            this.isSaving = false;
-
-            if (data.code == 0) {
-                noti.success('Thêm bình luận thành công');
-                this.cancelCommentForm();
-                this.getCommentList();
-            } else if (data.code == 1) {
-                noti.error(data.message);
-            }
-        },
-
-        /**
-         * Trả lời.
-         */
-        async addReply(comment) {
-            const contentHtml = this.$refs['replyEditor' + comment.id].getCode().trim();
-            const contentText = $('<div>' + contentHtml + '</div>')[0].textContent.trim();
-            if (!contentText) {
-                noti.error('Vui lòng nhập nội dung trả lời');
-                return;
-            }
-            if (contentHtml.length > 2000) {
-                noti.error('Nội dung trả lời quá dài');
-                return;
-            }
-
-            const params = {
-                newsId: this.newsId,
-                content: contentHtml,
-                parentId: comment.id
-            };
-            const { data } = await axios.post('/api/news/comment', params);
-            if (data.code == 0) {
-                this.cancelReplyForm(comment);
-                this.getCommentList();
-            }
-        },
-
-        /**
-         * Hiển thị trả lời.
-         */
-        openReplyForm(comment) {
-            comment.showReply = true;
-            this.$nextTick(() => {
-                this.$refs['replyEditor' + comment.id].focus();
-            });
-        },
-
-        /**
-         * Hủy bỏ trả lời.
-         */
-        cancelReplyForm(comment) {
-            comment.showReply = false;
-            this.$refs['replyEditor' + comment.id].setCode('<p><br></p>');
-        },
-
-        /**
-         * Thời gian tương đối.
-         */
-        relativeTime(datetime) {
-            const relativeTime = moment(datetime);
-
-            const now = moment();
-            if (now.diff(relativeTime, 'days', true) >= 1) {
-                return relativeTime.format('DD/MM/YYYY') + ' lúc ' + relativeTime.format('HH:mm');
-            } else {
-                return relativeTime.fromNow();
-            }
-        }
+      // Link đăng nhập
+      loginLink: SSO_PASSPORT_URL + '/login?app=' + SSO_CONSUMER_DOMAIN + '&returnLink=' + encodeURIComponent(window.location.href),
     }
-};
+  },
+
+  mounted() {
+    // Nếu chưa load xong Bootstrap thì ra undefined
+    // console.log($(document).tooltip);
+
+    this.getCommentList()
+
+    // TODO: Đã có trường isLogin rồi
+    this.checkLogin()
+  },
+
+  methods: {
+    /**
+     * Kiểm tra người dùng đã đăng nhập hay chưa.
+     */
+    async checkLogin() {
+      const token = getToken()
+
+      let userFullName = ''
+      let avatar = ''
+      if (token) {
+        const { data } = await axios.get('/me') // có thể gọi GET /me ở sso-passport
+        if (data.code == 0) {
+          const user = data.user
+          userFullName = user.full_name
+          avatar = user.avatar
+        } else {
+          // Xóa token đã hết hạn
+          // deleteToken();
+        }
+      }
+
+      this.userFullName = userFullName
+      this.avatar = avatar
+
+      this.checkLoginStatus = userFullName ? 1 : 2
+    },
+
+    /**
+     * Hủy form thêm bình luận.
+     */
+    cancelCommentForm() {
+      this.$refs.commentEditor.setCode('<p><br></p>')
+      CV.clearErrorMessages(this.$el)
+    },
+
+    /**
+     * Lấy danh sách comment.
+     */
+    async getCommentList() {
+      const params = {
+        newsId: this.newsId,
+      }
+      const { data } = await axios.get('/api/news/comment', { params })
+      const list = data ?? []
+
+      // Sắp xếp danh sách bình luận cấp 1 theo thời gian giảm dần (mới nhất ở đầu)
+      // Sắp xếp danh sách bình luận cấp 2 theo thời gian tăng dần (để nắm được luồng thảo luận)
+      const level1List = list
+        .filter(level1 => !level1.parent_id)
+        .map(level1 => {
+          const level2List = list.filter(level2 => level2.parent_id == level1.id).reverse()
+          return {
+            ...level1,
+            showReply: false,
+            replies: level2List,
+          }
+        })
+
+      this.commentList = level1List
+    },
+
+    /**
+     * Thêm comment.
+     */
+    async addComment() {
+      if (this.isSaving) {
+        return
+      }
+
+      const contentHtml = this.$refs.commentEditor.getCode().trim()
+      const contentText = $('<div>' + contentHtml + '</div>')[0].textContent.trim()
+      if (!contentText) {
+        noti.error('Vui lòng nhập nội dung bình luận')
+        return
+      }
+      if (contentHtml.length > 2000) {
+        noti.error('Nội dung bình luận quá dài')
+        return
+      }
+
+      this.isSaving = true
+      const params = {
+        newsId: this.newsId,
+        content: contentHtml,
+        parentId: null,
+      }
+      const { data } = await axios.post('/api/news/comment', params)
+      this.isSaving = false
+
+      if (data.code == 0) {
+        noti.success('Thêm bình luận thành công')
+        this.cancelCommentForm()
+        this.getCommentList()
+      } else if (data.code == 1) {
+        noti.error(data.message)
+      }
+    },
+
+    /**
+     * Trả lời.
+     */
+    async addReply(comment) {
+      const contentHtml = this.$refs['replyEditor' + comment.id].getCode().trim()
+      const contentText = $('<div>' + contentHtml + '</div>')[0].textContent.trim()
+      if (!contentText) {
+        noti.error('Vui lòng nhập nội dung trả lời')
+        return
+      }
+      if (contentHtml.length > 2000) {
+        noti.error('Nội dung trả lời quá dài')
+        return
+      }
+
+      const params = {
+        newsId: this.newsId,
+        content: contentHtml,
+        parentId: comment.id,
+      }
+      const { data } = await axios.post('/api/news/comment', params)
+      if (data.code == 0) {
+        this.cancelReplyForm(comment)
+        this.getCommentList()
+      }
+    },
+
+    /**
+     * Hiển thị trả lời.
+     */
+    openReplyForm(comment) {
+      comment.showReply = true
+      this.$nextTick(() => {
+        this.$refs['replyEditor' + comment.id].focus()
+      })
+    },
+
+    /**
+     * Hủy bỏ trả lời.
+     */
+    cancelReplyForm(comment) {
+      comment.showReply = false
+      this.$refs['replyEditor' + comment.id].setCode('<p><br></p>')
+    },
+
+    /**
+     * Thời gian tương đối.
+     */
+    relativeTime(datetime) {
+      const relativeTime = moment(datetime)
+
+      const now = moment()
+      if (now.diff(relativeTime, 'days', true) >= 1) {
+        return relativeTime.format('DD/MM/YYYY') + ' lúc ' + relativeTime.format('HH:mm')
+      } else {
+        return relativeTime.fromNow()
+      }
+    },
+  },
+}
 </script>
