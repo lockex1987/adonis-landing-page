@@ -1,62 +1,62 @@
 {
-    "name": "adonis-landing-page",
-    "version": "1.0.0",
-    "private": true,
-    "scripts": {
-        "dev": "node ace serve --watch",
-        "build": "node ace build --production",
-        "start": "node server.js",
-        "lint": "eslint --fix --ext=.ts app & eslint --fix --ext=.ts providers & eslint --fix --ext=.ts contracts & eslint --fix --ext=.ts commands & eslint --fix --ext=.ts config",
-        "dev-fe": "mix",
-        "watch-fe": "mix watch",
-        "prod-fe": "mix --production",
-        "lint-fe": "eslint --fix --ext=.js,.vue frontend/js",
-        "clear-fe": "rm public/js/* & rm public/css/*"
-    },
-    "eslintConfig": {
-        "extends": [
-            "plugin:adonis/typescriptApp"
-        ]
-    },
-    "eslintIgnore": [
-        "build"
-    ],
-    "devDependencies": {
-        "@adonisjs/assembler": "^5.6.2",
-        "@japa/preset-adonis": "^1.0.15",
-        "@japa/runner": "^2.0.7",
-        "@lockex1987/bootstrap-extended": "^1.2.1",
-        "@typescript-eslint/eslint-plugin": "^5.20.0",
-        "@typescript-eslint/parser": "^5.20.0",
-        "adonis-preset-ts": "^2.1.0",
-        "bootstrap": "^5.1.3",
-        "eslint": "^8.13.0",
-        "eslint-config-google": "^0.14.0",
-        "eslint-plugin-adonis": "^2.1.0",
-        "eslint-plugin-vue": "^8.6.0",
-        "laravel-mix": "^6.0.43",
-        "pino-pretty": "^7.6.1",
-        "resolve-url-loader": "^5.0.0",
-        "sass": "^1.50.1",
-        "sass-loader": "^12.6.0",
-        "typescript": "^4.6.3",
-        "vue": "^3.2.33",
-        "vue-loader": "^17.0.0",
-        "youch": "^3.1.1",
-        "youch-terminal": "^2.1.3"
-    },
-    "dependencies": {
-        "@adonisjs/core": "^5.7.5",
-        "@adonisjs/lucid": "^17.2.0",
-        "@adonisjs/redis": "^7.2.0",
-        "@adonisjs/repl": "^3.1.10",
-        "@adonisjs/session": "^6.2.2",
-        "@adonisjs/shield": "^7.0.10",
-        "@adonisjs/view": "^6.1.3",
-        "luxon": "^2.3.2",
-        "mysql": "^2.18.1",
-        "proxy-addr": "^2.0.7",
-        "reflect-metadata": "^0.1.13",
-        "source-map-support": "^0.5.21"
-    }
+  "name": "adonis-landing-page",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "node ace serve --watch",
+    "build": "node ace build --production",
+    "start": "node server.js",
+    "lint": "eslint --fix --ext=.ts app & eslint --fix --ext=.ts providers & eslint --fix --ext=.ts contracts & eslint --fix --ext=.ts commands & eslint --fix --ext=.ts config",
+    "dev-fe": "mix",
+    "watch-fe": "mix watch",
+    "prod-fe": "mix --production",
+    "lint-fe": "eslint --fix --ext=.js,.vue frontend/js",
+    "clear-fe": "rm public/js/* & rm public/css/*"
+  },
+  "eslintConfig": {
+    "extends": [
+      "plugin:adonis/typescriptApp"
+    ]
+  },
+  "eslintIgnore": [
+    "build"
+  ],
+  "devDependencies": {
+    "@adonisjs/assembler": "^5.6.2",
+    "@japa/preset-adonis": "^1.0.15",
+    "@japa/runner": "^2.0.7",
+    "@lockex1987/bootstrap-extended": "^1.2.1",
+    "@typescript-eslint/eslint-plugin": "^5.20.0",
+    "@typescript-eslint/parser": "^5.20.0",
+    "adonis-preset-ts": "^2.1.0",
+    "bootstrap": "^5.1.3",
+    "eslint": "^8.13.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-plugin-adonis": "^2.1.0",
+    "eslint-plugin-vue": "^8.6.0",
+    "laravel-mix": "^6.0.43",
+    "pino-pretty": "^7.6.1",
+    "resolve-url-loader": "^5.0.0",
+    "sass": "^1.50.1",
+    "sass-loader": "^12.6.0",
+    "typescript": "^4.6.3",
+    "vue": "^3.2.33",
+    "vue-loader": "^17.0.0",
+    "youch": "^3.1.1",
+    "youch-terminal": "^2.1.3"
+  },
+  "dependencies": {
+    "@adonisjs/core": "^5.7.5",
+    "@adonisjs/lucid": "^17.2.0",
+    "@adonisjs/redis": "^7.2.0",
+    "@adonisjs/repl": "^3.1.10",
+    "@adonisjs/session": "^6.2.2",
+    "@adonisjs/shield": "^7.0.10",
+    "@adonisjs/view": "^6.1.3",
+    "luxon": "^2.3.2",
+    "mysql": "^2.18.1",
+    "proxy-addr": "^2.0.7",
+    "reflect-metadata": "^0.1.13",
+    "source-map-support": "^0.5.21"
+  }
 }
