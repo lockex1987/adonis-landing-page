@@ -11,3 +11,5 @@ npm install
 Thêm file .env và cấu hình nó
 
 node ace serve --watch
+
+TODO: Split backend and frontend to resolve ESLint conflict
